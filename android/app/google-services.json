@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1089270098826",
+    "project_id": "calc-firebase-login",
+    "storage_bucket": "calc-firebase-login.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089270098826:android:6ff313ce876775f2ae7673",
+        "android_client_info": {
+          "package_name": "com.example.calc_firebase_login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHQXj1bRNA5A7d0DCWd1RPspEyJVnsido"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
