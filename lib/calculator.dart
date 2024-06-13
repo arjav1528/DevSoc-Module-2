@@ -1,9 +1,9 @@
+import 'package:calc_firebase_login/display.dart';
 import 'package:calc_firebase_login/home.dart';
-import 'package:calc_firebase_login/save/display.dart';
-import 'package:calc_firebase_login/save/history.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Calculator extends StatefulWidget {
@@ -20,10 +20,16 @@ class _CalculatorState extends State<Calculator> {
   String calculation = '';
   double result = 0;
   bool isVisible = true;
-  final CalculationService calculationService = CalculationService();
   final FirebaseAuth auth = FirebaseAuth.instance;
   late final User? user;
   late final String userID;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Future saveCalculation(String string) async{
+    return await _firestore.collection('users').doc(userID).collection('calculations').add({
+      'calculation' : calculation,
+      'timestamp' : FieldValue.serverTimestamp(),
+    });
+  }
   @override
   void initState(){
     super.initState();
@@ -40,7 +46,7 @@ class _CalculatorState extends State<Calculator> {
         actions:[
           TextButton.icon(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
             },
             label: Text('Logout',
             style: TextStyle(
@@ -102,6 +108,7 @@ class _CalculatorState extends State<Calculator> {
                           double num2 = double.parse(_num2Controller.text);
                           result = num1 + num2;
                           isVisible = !(isVisible);
+                          operation = '+';
                         });
                       },
                       style: ButtonStyle(
@@ -126,6 +133,7 @@ class _CalculatorState extends State<Calculator> {
                         double num2 = double.parse(_num2Controller.text);
                         result = num1 - num2;
                         isVisible = !(isVisible);
+                        operation = '-';
                       });
                     },
                     style: ButtonStyle(
@@ -150,6 +158,7 @@ class _CalculatorState extends State<Calculator> {
                         double num2 = double.parse(_num2Controller.text);
                         result = num1 * num2;
                         isVisible = !(isVisible);
+                        operation = 'x';
                       });
                     },
                     style: ButtonStyle(
@@ -174,6 +183,8 @@ class _CalculatorState extends State<Calculator> {
                         double num2 = double.parse(_num2Controller.text);
                         result = num1 / num2;
                         isVisible = !(isVisible);
+                        operation = '/';
+
                       });
                     },
                     style: ButtonStyle(
@@ -193,32 +204,6 @@ class _CalculatorState extends State<Calculator> {
                 ],
               ),
               const SizedBox(height: 20),
-              Center(
-                child: TextButton(
-                  onPressed: () async {
-                    setState(() async {
-                      calculation = "$_num1Controller $operation $_num2Controller = ${result.toString()}";
-                      await calculationService.saveCalculation(userID, calculation);
-                      isVisible = !(isVisible);
-                    });
-
-
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
-                    shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)
-                        )
-                    ),
-                  ),
-                  child: const Text('   Save   ',
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white
-                    ),),
-                ),
-              ),
               const SizedBox(height: 40),
               Center(
                 child: Text('$result',
@@ -227,23 +212,35 @@ class _CalculatorState extends State<Calculator> {
                       fontWeight: FontWeight.bold
                   ),),
               ),
-              SizedBox(height: 420),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
-                ),
+              SizedBox(height: 70),
+              TextButton(
+                child: Text('Save'),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HistoryLog()),
-                  );
+                  setState(() {
+                    double num1 = double.parse(_num1Controller.text);
+                    double num2 = double.parse(_num2Controller.text);
+                    calculation = '$num1 $operation $num2 = $result';
+                    saveCalculation(calculation);
+
+                  });
                 },
-                child: Text('History Log',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                ),),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                ),
               ),
+              SizedBox(height: 30),
+              TextButton(
+                child: Text('History'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryLog()));
+
+                  });
+                },
+                style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                ),
+              )
             ],
           ),
         ),

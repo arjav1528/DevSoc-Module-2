@@ -77,13 +77,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     try{
                       setState(() => yes = !yes);
                       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calculator() ));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Calculator() ));
                     }
                     catch(e){
-                      if (kDebugMode) {
-                        print(e.toString());
-                        setState(() => error = e.toString());
-                      }
+                      setState(() {
+                        error = e.toString();
+                      });
                     }
                   }
                   else{
@@ -114,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -133,7 +132,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: SpinKitCubeGrid(
                   color: Colors.blueAccent,
                 ),
-              )
+              ),
+              SizedBox(height: 20),
+              Text(error,
+                style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 30
+                ),)
+
 
             ],
           ),

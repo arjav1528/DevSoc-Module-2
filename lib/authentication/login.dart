@@ -79,12 +79,12 @@ class _LoginPageState extends State<LoginPage> {
 
                       await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calculator() ));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Calculator() ));
                     }
                     catch(e){
-                      if (kDebugMode) {
-                        print(e.toString());
-                      }
+                      setState(() {
+                        error = e.toString();
+                      });
                     }
                   }
                   else{
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                   backgroundColor: WidgetStateProperty.all(Colors.blueAccent),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -134,7 +134,13 @@ class _LoginPageState extends State<LoginPage> {
                 child: SpinKitCubeGrid(
                   color: Colors.blueAccent,
                 ),
-              )
+              ),
+              SizedBox(height: 20),
+              Text(error,
+              style: TextStyle(
+                color: Colors.redAccent,
+                fontSize: 30
+              ),)
 
             ],
           ),

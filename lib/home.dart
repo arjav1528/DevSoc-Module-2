@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 50),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 50),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
