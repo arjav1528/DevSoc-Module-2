@@ -41,7 +41,12 @@ class _CalculatorState extends State<Calculator> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Welcome to the Calculator'),
+        title: Text('Welcome to the Calculator',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 30,
+        ),),
+        centerTitle: true,
         backgroundColor: Colors.blueAccent,
         actions:[
           TextButton.icon(
@@ -203,7 +208,6 @@ class _CalculatorState extends State<Calculator> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
               const SizedBox(height: 40),
               Center(
                 child: Text('$result',
@@ -212,33 +216,51 @@ class _CalculatorState extends State<Calculator> {
                       fontWeight: FontWeight.bold
                   ),),
               ),
-              SizedBox(height: 70),
-              TextButton(
-                child: Text('Save'),
-                onPressed: () {
-                  setState(() {
-                    double num1 = double.parse(_num1Controller.text);
-                    double num2 = double.parse(_num2Controller.text);
-                    calculation = '$num1 $operation $num2 = $result';
-                    saveCalculation(calculation);
+              SizedBox(height: 50),
+              Center(
+                child: TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Save',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      double num1 = double.parse(_num1Controller.text);
+                      double num2 = double.parse(_num2Controller.text);
+                      calculation = '$num1 $operation $num2 = $result';
+                      saveCalculation(calculation);
 
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                    });
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                  ),
                 ),
               ),
-              SizedBox(height: 30),
-              TextButton(
-                child: Text('History'),
-                onPressed: () {
-                  setState(() {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryLog()));
+              SizedBox(height: 50),
+              Center(
+                child: TextButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('History',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white
+                    ),),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryLog()));
 
-                  });
-                },
-                style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                    });
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                  ),
                 ),
               )
             ],
