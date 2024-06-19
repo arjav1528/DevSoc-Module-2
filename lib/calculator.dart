@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 class Calculator extends StatefulWidget {
@@ -51,7 +52,7 @@ class _CalculatorState extends State<Calculator> {
         actions:[
           TextButton.icon(
             onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.fade));
             },
             label: Text('Logout',
             style: TextStyle(
@@ -219,14 +220,6 @@ class _CalculatorState extends State<Calculator> {
               SizedBox(height: 50),
               Center(
                 child: TextButton(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Save',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),),
-                  ),
                   onPressed: () {
                     setState(() {
                       double num1 = double.parse(_num1Controller.text);
@@ -239,11 +232,29 @@ class _CalculatorState extends State<Calculator> {
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Save',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),),
+                  ),
                 ),
               ),
               SizedBox(height: 50),
               Center(
                 child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(context, PageTransition(child: HistoryLog(), type:PageTransitionType.fade));
+
+
+                    });
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('History',
@@ -251,15 +262,6 @@ class _CalculatorState extends State<Calculator> {
                       fontSize: 30,
                       color: Colors.white
                     ),),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryLog()));
-
-                    });
-                  },
-                  style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
                   ),
                 ),
               )

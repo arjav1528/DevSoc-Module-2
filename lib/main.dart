@@ -1,5 +1,3 @@
-import 'package:calc_firebase_login/authentication/login.dart';
-import 'package:calc_firebase_login/calculator.dart';
 import 'package:calc_firebase_login/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

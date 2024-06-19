@@ -1,6 +1,7 @@
 import 'package:calc_firebase_login/authentication/login.dart';
 import 'package:calc_firebase_login/authentication/register.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -34,7 +35,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 50),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(context, PageTransition(child: LoginPage(), type: PageTransitionType.fade));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
                 SizedBox(height: 50),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                    Navigator.pushReplacement(context, PageTransition(child: RegisterPage(), type:PageTransitionType.fade));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.blueAccent)
