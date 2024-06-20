@@ -13,7 +13,7 @@ The things that are added additonal to Module 1 are:
 
 A few resources to get you started if this is your first Flutter project:
 
-- [Tutorial Which i Followed](https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC)
+- [Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC)
 - [Integrating Firebase and Flutter](https://firebase.google.com/docs/flutter/setup?platform=android)
 - [Integrating Firestore and Flutter](https://firebase.google.com/docs/firestore/quickstart)
 
